@@ -11,6 +11,7 @@ import AdminPages from '../pages/AdminPages';
 import MitraPages from '../pages/MitraPages';
 import ResultRoom from '../pages/ResultRoom';
 import Bookingflight from '../pages/Bookingflight';
+import DetailBooking from '../pages/DetailBooking';
 
 const Index = () => {
     const { pathname } = useLocation();
@@ -37,6 +38,7 @@ const Index = () => {
           <Route path='/search/flight' element={<ResultFlight/>} />
           <Route path='/search/room' element={<ResultRoom/>} />
           <Route path='/ticket/:id' element={<Bookingflight/>}/>
+          <Route path='/detailbooking/flight' element={<DetailBooking/>} />
         </Routes>
         <Foooter/>
     </>

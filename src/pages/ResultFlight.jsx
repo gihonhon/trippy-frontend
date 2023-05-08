@@ -129,7 +129,9 @@ const ResultFlight = () => {
                                                 <RiSuitcaseLine className='text-1xl'/> {item.weight} kg
                                             </span>
 
-                                            <button className='bg-[#3E5CB8] px-4 py-2 rounded-md text-white text-base font-medium' onClick={() => navigate(`/ticket/${item.id}`)}>Choose Flight</button>
+                                            <button className='bg-[#3E5CB8] px-4 py-2 rounded-md text-white text-base font-medium' 
+                                            onClick={() => navigate(`/ticket/${item.id}?depTime=${item.depatureTime}&arrTime=${item.arrivalTime}&depCity=${item.depatureCity}&arrCity=${item.arrivalCity}&airlines=${item.plane}&seatClass=${item.classType}&orderNumber=${item.orderNum}&price=${item.price}&cabin=${item.weight}`)}
+                                            >Choose Flight</button>
                                         </div>
                                     </div>
                                 </div>

@@ -6,8 +6,9 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import dayjs from 'dayjs'
 import * as yup from "yup"
 import { Controller, useForm } from 'react-hook-form'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import { yupResolver } from '@hookform/resolvers/yup'
+import Swal from 'sweetalert2'
 
 const bookerSchema = yup.object().shape({
     title: yup.string().required(),
@@ -16,8 +17,6 @@ const bookerSchema = yup.object().shape({
     phone: yup.string().required(),
     seats: yup.string().required(),
     citizen: yup.string().required(),
-    payment: yup.string().required(),
-    price: yup.string('2.000.0000').required()
 })
 
 const typeTitle = [
@@ -35,15 +34,60 @@ const typeTitle = [
     }
   ];
 
+  const typeSeat = [
+    {
+      value: 'Economy',
+      label: 'Economy',
+    },
+    {
+      value: 'Premium Economy',
+      label: 'Premium Economy',
+    },
+    {
+      value: 'First Class',
+      label: 'First Class',
+    },
+    {
+      value: 'Business',
+      label: 'Business',
+    },
+  ];
+
 const Bookingflight = () => {
+    const navigate = useNavigate()
+    let [searchParams, setSearchParams] = useSearchParams()
+    const depTime = searchParams.get('depTime')
+    const arrTime = searchParams.get('arrTime')
+    const depCity = searchParams.get('depCity')
+    const airlines = searchParams.get('airlines')
+    const arrCity = searchParams.get('arrCity')
+    const seatClass = searchParams.get('seatClass')
+    const ordernumber = searchParams.get('orderNumber')
+    const price = searchParams.get('price')
+    const cabin = searchParams.get('cabin')
     const { control, handleSubmit, formState: { errors } } = useForm({ resolver: yupResolver(bookerSchema) })
     const paySubmit = (data) => {
+      // if (saldoWalet >= data.price) (
+      //   Swal.fire({
+      //     icon:'success',
+      //     title:'Payment Success',
+      //     text:'Check your order now',
+      //   })
+      // ) else (
+      //   Swal.fire({
+      //     icon:'error',
+      //     title: 'Payment Invalid',
+      //     text: 'Your saldo not enough'
+      //   })
+      // )
+        navigate(
+          `/detailbooking/flight?depTime=${depCity}&arrTime=${arrTime}&depCity=${depCity}&arrCity=${arrCity}&airlines=${airlines}&seatClass=${seatClass}&orderNumber=${ordernumber}&price=${price}&cabin=${cabin}`)
         console.log(data)
     }
     return (
 <div className="container mx-auto py-10 px-10 min-h-screen">
       {/* Form */}
-      <form>
+      <form onSubmit={handleSubmit(paySubmit)}>
         <div className="grid lg:grid-cols-3 grid-cols-2 gap-y-8">
           <div className="col-span-2 bg-[#f1f5f5]  px-8 pb-8  rounded-md">
             <div className="border-b border-gray-300 mt-5">
@@ -64,6 +108,7 @@ const Bookingflight = () => {
                             margin='dense'
                             select
                             fullWidth
+                            defaultValue=''
                             label='Title Traveler'
                             error={!!errors.title}
                             helperText={errors.title?.message}
@@ -146,7 +191,7 @@ const Bookingflight = () => {
                         <div>
                             <h1 className='text-xl font-medium'>Seat<span className='text-red-400'>*</span></h1>
                             <Controller
-                            name='seat'
+                            name='seats'
                             control={control}
                             defaultValue=''
                             render={({ field }) => (
@@ -159,7 +204,13 @@ const Bookingflight = () => {
                                 label='Seat'
                                 error={!!errors.phone}
                                 helperText={errors.phone?.message}
-                                />
+                                >
+                                  {typeSeat.map((option) => (
+                                    <MenuItem key={option.value} value={option.value}>
+                                      {option.label}
+                                    </MenuItem>
+                                  ))}
+                                </TextField>
                             )}
                             />
                         </div>
@@ -178,18 +229,13 @@ const Bookingflight = () => {
                                 margin='dense'
                                 select
                                 fullWidth
+                                defaultValue=''
                                 label='Citizen'
                                 error={!!errors.citizen}
                                 helperText={errors.citizen?.message}
                                 >
                                     {countries.map((option) => (
                                         <MenuItem key={option.code} value={option.code}>
-                                            <img
-                                            loading='lazy'
-                                            alt=''
-                                            src={`https://flagcdn.com/w20/${option.code.toLowerCase()}.png`}
-                                            srcSet={`https://flagcdn.com/w40/${option.code.toLowerCase()}.png 2x`}
-                                            />
                                             {option.label}
                                         </MenuItem>
                                     ))}
