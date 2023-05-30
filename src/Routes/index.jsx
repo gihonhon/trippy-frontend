@@ -13,6 +13,7 @@ import ResultRoom from '../pages/ResultRoom';
 import Bookingflight from '../pages/Bookingflight';
 import DetailBooking from '../pages/DetailBooking';
 import ProfilePage from '../pages/ProfilePage';
+import TestPage from '../pages/TestPage';
 
 const Index = () => {
     const { pathname } = useLocation();
@@ -41,6 +42,7 @@ const Index = () => {
           <Route path='/ticket/:id' element={<Bookingflight/>}/>
           <Route path='/detailbooking/flight' element={<DetailBooking/>} />
           <Route path='/user/profile' element={<ProfilePage/>} />
+          <Route path='/testing' element={<TestPage/>} />
         </Routes>
         <Foooter/>
     </>
