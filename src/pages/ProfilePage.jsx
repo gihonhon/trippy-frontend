@@ -7,9 +7,6 @@ import { SiFloatplane } from 'react-icons/si'
 import { BsCalendar2Check, BsCardList, BsPencilSquare } from "react-icons/bs";
 import { BiWalletAlt, BiCheck } from 'react-icons/bi';
 import { AiOutlineClose, AiOutlineCheck } from 'react-icons/ai'
-import UserPages from '../components/ProfileUser/UserPages';
-import WalletUser from '../components/ProfileUser/WalletUser';
-import OrdersUser from '../components/ProfileUser/OrdersUser';
 import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from "yup"
