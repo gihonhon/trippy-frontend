@@ -15,6 +15,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from "yup"
 import { LocalizationProvider, DatePicker } from '@mui/x-date-pickers'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import {} from 'react-icons'
 
 const profileSchema = yup.object().shape({
     fullName: yup.string().required(),
