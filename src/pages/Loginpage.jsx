@@ -5,6 +5,7 @@ const Loginpage = () => {
     const navigate = useNavigate()
   return (
     <div className='w-full flex overflow-auto max-h-[100vh] items-center flex-col justify-start'>
+        
         <div className='w-full h-[100vh] flex items-end justify-start'>
             <div className='flex-[0_0_auto] w-[50%] h-full flex relative self-center items-start flex-col justify-start'>
             <img onClick={() => navigate('/')} src='/playground_assets/logo%20black.svg' alt='' loading='lazy' className='top-[27px] left-[49px] w-[100px] absolute object-cover cursor-pointer'/>
