@@ -113,7 +113,7 @@ const DetailBooking = () => {
             </div>
             <div className="mt-3">
               <button className="bg-[#3e5cb8] w-full text-white p-4 rounded-md font-semibold" onClick={() => navigate('/')}>
-                Check Your Order
+                Continue Booking
               </button>
             </div>
           </div>
