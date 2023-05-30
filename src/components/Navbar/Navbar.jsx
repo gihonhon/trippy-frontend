@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom';
 import Button from '@mui/material/Button';
 import Notification from './Notification'
@@ -17,6 +17,30 @@ const Navbar = ({ styles }) => {
     const token = JSON.parse(localStorage.getItem("token"));
     const user = JSON.parse(localStorage.getItem("user"));
 
+    const [isSticky, setIsSticky] = useState(false);
+
+    useEffect(() => {
+      const handleScroll = () => {
+        // Determine the scroll position
+        const scrollPosition = window.scrollY;
+  
+        // Set the state based on the scroll position
+        if (scrollPosition > 0) {
+          setIsSticky(true);
+        } else {
+          setIsSticky(false);
+        }
+      };
+  
+      // Attach the scroll event listener
+      window.addEventListener('scroll', handleScroll);
+  
+      // Clean up the event listener on component unmount
+      return () => {
+        window.removeEventListener('scroll', handleScroll);
+      };
+    }, []);
+
     // const [anchorEl, setAnchorEl] = React.useState(null);
     // const open = Boolean(anchorEl);
     // const handleClick = (event) => {
@@ -27,7 +51,7 @@ const Navbar = ({ styles }) => {
     // };
 
   return (
-    <nav className={`${styles}`}>
+    <nav className={isSticky ? `fixed top-0 bg-blue-300/[0.8] w-full z-50 shadow-xl` : `${styles}`}>
         <div className='flex justify-between container mx-auto px-10 h-20 items-center'>
             <div className='flex justify-between items-center'>
                 <div className='cursor-pointer w-24' onClick={() => navigate('/')}>

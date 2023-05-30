@@ -2,42 +2,135 @@ import styled from '@emotion/styled'
 import { Height } from '@mui/icons-material'
 import React from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
-import platinum from '../image/platinum.jpg'
-
+import { Rating } from '@mui/material'
+import { MdFlightClass } from 'react-icons/md'
+import { TbPlaneInflight } from 'react-icons/tb'
+import { IoAirplaneOutline } from "react-icons/io5";
+import { RiSuitcaseLine } from 'react-icons/ri'
 
 const ResultRoom = () => {
+    
+
     let [searchParams, setSearchParams] = useSearchParams()
     const city = searchParams.get('cityLocatioon')
     const checkin = searchParams.get('checkinDate')
     const checkout = searchParams.get('checkoutDate')
-
-      return (
-        <div className='container flex mx-auto py-2 rounded-[12px] border-solid border-2 border-indigo-600 border-[#a9a9a9] mb-20 mt-20'>
-          <div className='searchitem  border-2 rounded-xl shadow-md  rounded-lg'>
-            <img src={platinum}
-            alt=""
-            className="siImg object-scale-down h-48 w-96 "
-            />
-          </div>
-          <div className='siDesc flex-1 flex-col gap-50'>
-            <div className='siTitle font-bold text-3xl text-[#00b5bd]'>Platinum Hotel & Convention Hall Balikpapan</div>
-            <div className='siDistance text-1xl text-[#7A7C85] '>Batu Ampar - 10,1km form center</div>  
-            <div className='siCancelOpSubtitle text-1xl text-[#7A7C85]'>You can cancel later, so lock in this great price today</div>
-          </div>
-          <div className='siDetails flex-1  w-32'>
-            <div className='siRating flex'>
-              <span className='flex-auto w-500 text-xl'>Excellent</span>
-              <button className='text-xl'>8.9</button>
-            </div>
-              <div className='bsiDetailsTexts flex-1 flex-col'>
-              <div className='siPrice'>Rp 870.000,00</div>
-              <div className='siTaxOp'>Includes taxes and fees</div>
-              <button className='siChecButton'>See availability</button>
-            </div>
-          </div>
-        </div>
-      );
-    }
-
+    const navigate = useNavigate()
+  return (
+<section className='mt-10'>
+                <div className='container mx-auto py-2'>
+                    {flights.map((item) => {
+                        return(
+                            <div key={item.id} className='border-2 rounded-xl mx-8 shadow-md bg-[#fff] px-10 py-3 my-4'>
+                            <div className='flex gap-8 my-2'>
+                                <img className='w-[20%] h-[20%] rounded-md' src='https://loremflickr.com/640/480/city' alt=''/>
+                                <div className='flex flex-col gap-y-2 w-full'>
+                                  <div className='flex text-2xl font-bold justify-between'>
+                                    <h1>Tanah Abang</h1>
+                                    <h1>Rp 200.000</h1>
+                                  </div>
+                                  <div className='flex'>
+                                    <Rating value={4} readOnly/>
+                                  </div>
+                                  <span className='flex gap-x-1 text-[#9a9a9d]'>
+                                    <p>subdistrict</p> | <p>city</p>
+                                  </span>
+                                </div>
+                            </div>
+                        </div>
+                        )
+                    })}
+                </div>
+        </section>
+  )
+}
 
 export default ResultRoom;
+
+const labels = {
+  0.5: 'Useless',
+  1: 'Useless+',
+  1.5: 'Poor',
+  2: 'Poor+',
+  2.5: 'Ok',
+  3: 'Ok+',
+  3.5: 'Good',
+  4: 'Good+',
+  4.5: 'Excellent',
+  5: 'Excellent+',
+};
+
+const flights = [
+  {
+      id: 1,
+      plane: 'Garuda Indonesia',
+      orderNum: 24508,
+      classType: 'Economy Class',
+      depatureCity: 'Jakarta',
+      depatureTime: '11:00',
+      arrivalCity: 'Aceh',
+      arrivalTime: '13:00',
+      price: '2.200.000,00',
+      weight: 25,
+  },
+  {
+      id: 2,
+      plane: 'Lion Air',
+      orderNum: 24509,
+      classType: 'Economy Class',
+      depatureCity: 'Jakarta',
+      depatureTime: '11:00',
+      arrivalCity: 'Medan',
+      arrivalTime: '12:00',
+      price: '1.800.000,00',
+      weight: 25,
+  },
+  {
+      id: 3,
+      plane: 'Batik Air',
+      orderNum: 24510,
+      classType: 'Economy Class',
+      depatureCity: 'Jakarta',
+      depatureTime: '11:00',
+      arrivalCity: 'Balikpapan',
+      arrivalTime: '12:00',
+      price: '1.000.000,00',
+      weight: 25,
+  },
+  {
+      id: 4,
+      plane: 'Garuda Indonesia',
+      orderNum: 24511,
+      classType: 'Economy Class',
+      depatureCity: 'Medan',
+      depatureTime: '09:00',
+      arrivalCity: 'Bali',
+      arrivalTime: '12:00',
+      price: '2.800.000,00',
+      weight: 25,
+  },
+  {
+      id: 5,
+      plane: 'Citilink',
+      orderNum: 24512,
+      classType: 'Economy Class',
+      depatureCity: 'Bali',
+      depatureTime: '13:00',
+      arrivalCity: 'Samarinda',
+      arrivalTime: '15:10',
+      price: '1.900.000,00',
+      weight: 25,
+  },
+  {
+      id: 6,
+      plane: 'Lion Air',
+      orderNum: 24513,
+      classType: 'Economy Class',
+      depatureCity: 'Aceh',
+      depatureTime: '08:00',
+      arrivalCity: 'Balikpapan',
+      arrivalTime: '11:00',
+      price: '2.700.000,00',
+      weight: 25,
+  },
+]
