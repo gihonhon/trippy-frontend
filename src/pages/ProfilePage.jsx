@@ -379,7 +379,53 @@ const ProfilePage = () => {
           </div>
         </TabPanel>
         <TabPanel value={value} index={4}>
-          Item Three
+        
+  <div>
+    <h1 class="text-2xl font-bold mb-4">History Order</h1>
+
+    <table class="min-w-full bg-white border-collapse border border-slate-400"> 
+      <thead>
+        <tr>
+          <th class="border border-slate-400 py-2 px-4 bg-gray-200 text-gray-700 font-bold uppercase">No</th>
+          <th class="border border-slate-400 py-2 px-4 bg-gray-200 text-gray-700 font-bold uppercase">ID</th>
+          <th class="border border-slate-400 py-2 px-4 bg-gray-200 text-gray-700 font-bold uppercase">Tanggal Pesan</th>
+          <th class="border border-slate-400 py-2 px-4 bg-gray-200 text-gray-700 font-bold uppercase">Nama Pemesan</th>
+          <th class="border border-slate-400 py-2 px-4 bg-gray-200 text-gray-700 font-bold uppercase">Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class='no border border-slate-400'></td>
+          <td class='id border border-slate-400'></td>
+          <td class='tanggal-pesan border border-slate-400'></td>
+          <td class='nama-pemesan border border-slate-400'></td>
+          <td class='status border border-slate-400'></td>
+
+        </tr>
+      </tbody>
+    </table>
+  </div>
+          {/* <table className='TableHead'>
+            <thead>
+              <tr>
+              <th>No</th>
+              <th>Id Order</th>
+              <th>Tanggal Pemesanan</th>
+              <th>Nama Pemesan</th>
+              <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th>1</th>
+                <th>2</th>
+                <th>3</th>
+                <th>4</th>
+                <th>5</th>
+              </tr>
+            </tbody>
+
+          </table> */}
         </TabPanel>
       </Box>
         </div>
