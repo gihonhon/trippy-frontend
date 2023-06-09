@@ -81,7 +81,7 @@ const AdminPages = () => {
           sx={{ borderRight: 1, borderColor: 'divider' }}
         >
           <Tab icon={<PeopleAltIcon/>} iconPosition="start" label="User" {...a11yProps(0)} />
-          <Tab icon={<AccountBalanceWalletIcon/>} iconPosition='start' label="E-Money" {...a11yProps(1)} />
+          
           <Tab icon={<SupervisorAccountIcon/>} iconPosition='start' label="Mitra" {...a11yProps(2)} />
           <Divider/>
           <Tab icon={<AirplaneTicketIcon/>} iconPosition='start' label="Flight" {...a11yProps(4)} />

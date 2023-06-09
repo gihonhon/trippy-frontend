@@ -197,7 +197,7 @@ const Hotelpages = () => {
                 <img src={'/playground_assets/promotion_2.png'} className="" />
               </div>
               <h1 className="text-lg font-semibold mt-10 text-[#59595b]">Service You Can Trust</h1>
-              <p className="mt-3 text-[#b4b4b7]">You get what you paid for – guaranteed.</p>
+              <p className="mt-3 text-[#b4b4b7]">You get what you paid for - guaranteed.</p>
             </div>
             <div className="col-span-1 text-center max-w-[300px]">
               <div className=" flex justify-center  max-h-[140px]">

@@ -7,20 +7,16 @@ import { SiFloatplane } from 'react-icons/si'
 import { BsCalendar2Check, BsCardList, BsPencilSquare } from "react-icons/bs";
 import { BiWalletAlt, BiCheck } from 'react-icons/bi';
 import { AiOutlineClose, AiOutlineCheck } from 'react-icons/ai'
-import UserPages from '../components/ProfileUser/UserPages';
-import WalletUser from '../components/ProfileUser/WalletUser';
-import OrdersUser from '../components/ProfileUser/OrdersUser';
 import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from "yup"
 import { LocalizationProvider, DatePicker } from '@mui/x-date-pickers'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import {} from 'react-icons'
 
 const profileSchema = yup.object().shape({
     fullName: yup.string().required(),
-    gender: yup.string().required(),
     email: yup.string().email().required(),
-    birthDate: yup.date().required(),
     phone: yup.string().required(),
 })
 
@@ -99,6 +95,7 @@ function TabPanel(props) {
   }
 
 const ProfilePage = () => {
+  const user = JSON.parse(localStorage.getItem("user"));
     const navigate = useNavigate();
     const [value, setValue] = React.useState(0);
     const handleChange = (event, newValue) => {
@@ -135,7 +132,7 @@ const ProfilePage = () => {
         <TabPanel value={value} index={0}>
             <div className='flex flex-col'>
                 <div className='flex flex-col items-center'>
-                    <Avatar {...stringAvatar('User Test')} sx={{width:'120px', height:'120px', fontSize:'60px'}} />
+                    <Avatar {...stringAvatar(`${user.fullname}`)} sx={{width:'120px', height:'120px', fontSize:'60px'}} />
                     <button onClick={() => setProfileEdit(!profileEdit)} className={`${profileEdit ? 'hidden' : 'border font-medium hover:bg-blue-500 hover:text-white inline-flex items-center rounded-md my-4 p-[12px_14px]'}`}>
                         <BsPencilSquare className='mr-2'/> Edit Profile
                     </button>
@@ -150,7 +147,7 @@ const ProfilePage = () => {
                                   <Controller
                                   name='fullName'
                                   control={control}
-                                  defaultValue='User Test'
+                                  defaultValue="lohe soa"
                                   render={({ field }) => (
                                       <TextField
                                       {...field}
@@ -164,31 +161,7 @@ const ProfilePage = () => {
                                   />
                                 </div>
                             
-                                <div className='mx-2'>
-                                  <h1>Gender</h1>
-                                  <Controller
-                                  name='gender'
-                                  control={control}
-                                  defaultValue='Female'
-                                  render={({ field }) => (
-                                    <TextField
-                                    {...field}
-                                    margin='dense'
-                                    select
-                                    variant="standard"
-                                    fullWidth
-                                    error={!!errors.gender}
-                                    helperText={errors.gender?.message}
-                                    >
-                                      {genderSelecet.map((option) => (
-                                        <MenuItem key={option.value} value={option.value}>
-                                          {option.label}
-                                        </MenuItem>
-                                      ))}
-                                    </TextField>
-                                    )}
-                                  />
-                                </div>
+                                
 
                             <div className='mx-2'>
                                 <h1>Email Address</h1>
@@ -209,26 +182,7 @@ const ProfilePage = () => {
                                 />
                             </div>
 
-                            <div className='mx-2'>
-                                <h1>Birth Dates</h1>
-                                <Controller
-                                name='birthDate'
-                                control={control}
-                                defaultValue={null}
-                                render={({ field: { onChange, defValue}, fieldState: { error } }) => (
-                                  <LocalizationProvider dateAdapter={AdapterDayjs}>
-                                      <DatePicker
-                                      value={defValue}
-                                      onChange={onChange}
-                                      format='DD/MM/YYYY'
-                                      error={!!error}
-                                      helperText={error ? error.message : null}
-                                      textField={(params) => <TextField {...params} />}
-                                      />
-                                  </LocalizationProvider>
-                              )}
-                                />
-                            </div>
+                            
 
                             <div className='mx-2'>
                                 <h1>Phone Number</h1>
@@ -256,7 +210,7 @@ const ProfilePage = () => {
                                 <Controller
                                 name='fullName'
                                 control={control}
-                                defaultValue='User Test'
+                                defaultValue={user.fullname}
                                 render={({ field }) => (
                                     <TextField
                                     {...field}
@@ -271,32 +225,13 @@ const ProfilePage = () => {
                                 />
                             </div>
                             
-                            <div className='mx-2'>
-                                <h1>Gender</h1>
-                                <Controller
-                                name='gender'
-                                control={control}
-                                defaultValue='Female'
-                                render={({ field }) => (
-                                    <TextField
-                                    {...field}
-                                    disabled
-                                    margin='dense'
-                                    variant="standard"
-                                    fullWidth
-                                    error={!!errors.gender}
-                                    helperText={errors.gender?.message}
-                                    />
-                                )}
-                                />
-                            </div>
 
                             <div className='mx-2'>
                                 <h1>Email Address</h1>
                                 <Controller
                                 name='email'
                                 control={control}
-                                defaultValue='usertest@gmail.com'
+                                defaultValue={user.email}
                                 render={({ field }) => (
                                     <TextField
                                     {...field}
@@ -311,32 +246,13 @@ const ProfilePage = () => {
                                 />
                             </div>
 
-                            <div className='mx-2'>
-                                <h1>Birth Date</h1>
-                                <Controller
-                                name='birthDate'
-                                control={control}
-                                defaultValue='01/01/2002'
-                                render={({ field }) => (
-                                    <TextField
-                                    {...field}
-                                    disabled
-                                    margin='dense'
-                                    variant="standard"
-                                    fullWidth
-                                    error={!!errors.birthDate}
-                                    helperText={errors.birthDate?.message}
-                                    />
-                                )}
-                                />
-                            </div>
 
                             <div className='mx-2'>
                                 <h1>Phone Number</h1>
                                 <Controller
                                 name='phone'
                                 control={control}
-                                defaultValue='812789456123'
+                                defaultValue={user.phone}
                                 render={({ field }) => (
                                     <TextField
                                     {...field}
@@ -381,7 +297,53 @@ const ProfilePage = () => {
           </div>
         </TabPanel>
         <TabPanel value={value} index={4}>
-          Item Three
+        
+  <div>
+    <h1 class="text-2xl font-bold mb-4">History Order</h1>
+
+    <table class="min-w-full bg-white border-collapse border border-slate-400"> 
+      <thead>
+        <tr>
+          <th class="border border-slate-400 py-2 px-4 bg-gray-200 text-gray-700 font-bold uppercase">No</th>
+          <th class="border border-slate-400 py-2 px-4 bg-gray-200 text-gray-700 font-bold uppercase">ID</th>
+          <th class="border border-slate-400 py-2 px-4 bg-gray-200 text-gray-700 font-bold uppercase">Tanggal Pesan</th>
+          <th class="border border-slate-400 py-2 px-4 bg-gray-200 text-gray-700 font-bold uppercase">Nama Pemesan</th>
+          <th class="border border-slate-400 py-2 px-4 bg-gray-200 text-gray-700 font-bold uppercase">Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class='no border border-slate-400'></td>
+          <td class='id border border-slate-400'></td>
+          <td class='tanggal-pesan border border-slate-400'></td>
+          <td class='nama-pemesan border border-slate-400'></td>
+          <td class='status border border-slate-400'></td>
+
+        </tr>
+      </tbody>
+    </table>
+  </div>
+          {/* <table className='TableHead'>
+            <thead>
+              <tr>
+              <th>No</th>
+              <th>Id Order</th>
+              <th>Tanggal Pemesanan</th>
+              <th>Nama Pemesan</th>
+              <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th>1</th>
+                <th>2</th>
+                <th>3</th>
+                <th>4</th>
+                <th>5</th>
+              </tr>
+            </tbody>
+
+          </table> */}
         </TabPanel>
       </Box>
         </div>

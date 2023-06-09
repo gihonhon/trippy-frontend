@@ -15,11 +15,14 @@ import { MdOutlineFlightClass } from 'react-icons/md'
 import { BsCalendarDate, BsSearch, BsCalendar4Event, BsBookmarkCheck, BsCheckSquare } from "react-icons/bs";
 import Foooter from '../components/Footer/Foooter'
 
+
+
 const flightScehma = yup.object().shape({
     depatureCity: yup.string().required(),
     arrivalCity: yup.string().required(),
     dateDep: yup.date().required('Date is required'),
     dateArr: yup.date().required('Date is required'),
+    nights: yup.number(),
     seatClass: yup.string().required(),
     numPassenger: yup.number().required()
 })
@@ -46,9 +49,23 @@ const typeSeat = [
 const Homepage = () => {
     const { control, handleSubmit, formState: { errors } } = useForm({ resolver: yupResolver(flightScehma) })
     const navigate = useNavigate()
+
   const searchSubmit = (data) => {
-    data.dateDep = dayjs(data.dateDep).format('DD-MM-YYYY')
-    data.dateArr = dayjs(data.dateArr).format('DD-MM-YYYY')
+    data.dateDep = dayjs(data.dateDep).format('YYYY-MM-DD')
+    data.dateArr = dayjs(data.dateArr).format('YYYY-MM-DD')
+    const dateStart = dayjs(data.dateDep).format('YYYY-MM-DD')
+    const dateEnd = dayjs(data.arr).format('YYYY-MM-DD')
+    const start = new Date(dateStart);
+    const end = new Date(dateEnd);
+    
+    // Set both dates to the same time to compare only the dates
+    start.setHours(0, 0, 0, 0);
+    end.setHours(0, 0, 0, 0);
+    const difference = Math.abs(end - start);
+    const rangeNights = Math.ceil(difference / (1000 * 60 * 60 * 24));
+    console.log(rangeNights)
+    data.nights = rangeNights
+
     navigate(`/search/flight?depDate=${data.dateDep}&arrDate=${data.dateArr}&depCity=${data.depatureCity}&arrCity=${data.arrivalCity}&seatClass=${data.seatClass}&passenger=${data.numPassenger}`)
     console.log(data)
   }
@@ -56,7 +73,7 @@ const Homepage = () => {
   return (
     <>
     <section className='relative sm:mb-[250px] mb-[450px]'>
-        <Navbar styles="absolute top-0 w-full z-10 text-white"/>
+        <Navbar styles="fixed bg-transparent top-0 w-full z-10 text-white"/>
         <div className='h-[75vh]'>
             <div className='bg-cover brightness-[0.85] w-full h-full absolute top-0' style={{ backgroundImage: 'url(/playground_assets/wp9247941-4k-indonesia-wallpapers-1500h.jpg)', zIndex: "-2" }}></div>
             <div className='flex flex-col justify-center h-full items-center text-white z-10 text-center'>
@@ -132,10 +149,9 @@ const Homepage = () => {
                                         render={({ field: { onChange, value}, fieldState: { error } }) => (
                                             <LocalizationProvider dateAdapter={AdapterDayjs}>
                                                 <DatePicker
-                                                label="DateDep"
                                                 value={value}
                                                 onChange={onChange}
-                                                format='DD/MM/YYYY'
+                                                format='YYYY/MM/DD'
                                                 error={!!error}
                                                 helperText={error ? error.message : null}
                                                 textField={(params) => <TextField {...params} />}
@@ -161,10 +177,9 @@ const Homepage = () => {
                                         render={({ field: { onChange, value}, fieldState: { error } }) => (
                                             <LocalizationProvider dateAdapter={AdapterDayjs}>
                                                 <DatePicker
-                                                label="DateArr"
                                                 value={value}
                                                 onChange={onChange}
-                                                format='DD/MM/YYYY'
+                                                format='YYYY/MM/DD'
                                                 error={!!error}
                                                 helperText={error ? error.message : null}
                                                 textField={(params) => <TextField {...params}/>}
