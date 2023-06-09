@@ -1,5 +1,5 @@
 import React from 'react'
-import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
+import { Navigate, Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import Navbar from '../components/Navbar/Navbar';
 import Foooter from '../components/Footer/Foooter';
 import Homepage from '../pages/Homepage';
@@ -14,11 +14,17 @@ import Bookingflight from '../pages/Bookingflight';
 import DetailBooking from '../pages/DetailBooking';
 import ProfilePage from '../pages/ProfilePage';
 import TestPage from '../pages/TestPage';
+import NotFound from '../pages/NotFound';
 
 const Index = () => {
     const { pathname } = useLocation();
+    const navigate = useNavigate()
+    const token = JSON.parse(localStorage.getItem("token"))
+    const user = JSON.parse(localStorage.getItem("user"))
+    const admin = JSON.parse(localStorage.getItem("admin"))
+    const mitra = JSON.parse(localStorage.getItem("mitra"))
 
-    if (pathname === "/login" || pathname === "/register"  || pathname === '/hotel' || pathname === "/" || pathname === '/admin' || pathname === '/mitra') {
+    if (pathname === "/login" || pathname === "/register"  || pathname === '/hotel' || pathname === "/") {
       return (
         <>
           <Routes>
@@ -26,9 +32,39 @@ const Index = () => {
             <Route path='/hotel' element={<Hotelpages/>}/>
             <Route path='login' element={ <Loginpage/> } />
             <Route path='/register' element={ <Registerpage/> }/>
-            <Route path='/admin' element={<AdminPages/>}/>
-            <Route path='/mitra' element={<MitraPages/>}/>
           </Routes>
+        </>
+      )
+    }
+
+    if( pathname === "/admin" ) {
+      return (
+        <>
+        {admin & token ? 
+          <Routes>
+            <Route path='/admin' element={<AdminPages/>}/>
+          </Routes>  :
+          <Navigate to="/404" replace />
+          // <Routes>
+          //   <Route path='/404' element={<NotFound/>} />
+          // </Routes>
+      }
+        </>
+      )
+    }
+
+    if( pathname === "/mitra" ) {
+      return (
+        <>
+        {mitra & token ? 
+          <Routes>
+            <Route path='/mitra' element={<AdminPages/>}/>
+          </Routes>  :
+          <Navigate to="/404" replace />
+          // <Routes>
+          //   <Route path='/404' element={<NotFound/>} />
+          // </Routes>
+      }
         </>
       )
     }
@@ -43,6 +79,7 @@ const Index = () => {
           <Route path='/detailbooking/flight' element={<DetailBooking/>} />
           <Route path='/user/profile' element={<ProfilePage/>} />
           <Route path='/testing' element={<TestPage/>} />
+          <Route path='/404' element={<NotFound/>} />
         </Routes>
         <Foooter/>
     </>

@@ -51,10 +51,10 @@ const Homepage = () => {
     const navigate = useNavigate()
 
   const searchSubmit = (data) => {
-    data.dateDep = dayjs(data.dateDep).format('DD-MM-YYYY')
-    data.dateArr = dayjs(data.dateArr).format('DD-MM-YYYY')
-    const dateStart = dayjs(data.dateDep).format('DD-MM-YYYY')
-    const dateEnd = dayjs(data.arr).format('DD-MM-YYYY')
+    data.dateDep = dayjs(data.dateDep).format('YYYY-MM-DD')
+    data.dateArr = dayjs(data.dateArr).format('YYYY-MM-DD')
+    const dateStart = dayjs(data.dateDep).format('YYYY-MM-DD')
+    const dateEnd = dayjs(data.arr).format('YYYY-MM-DD')
     const start = new Date(dateStart);
     const end = new Date(dateEnd);
     
@@ -149,10 +149,9 @@ const Homepage = () => {
                                         render={({ field: { onChange, value}, fieldState: { error } }) => (
                                             <LocalizationProvider dateAdapter={AdapterDayjs}>
                                                 <DatePicker
-                                                label="DateDep"
                                                 value={value}
                                                 onChange={onChange}
-                                                format='DD/MM/YYYY'
+                                                format='YYYY/MM/DD'
                                                 error={!!error}
                                                 helperText={error ? error.message : null}
                                                 textField={(params) => <TextField {...params} />}
@@ -178,10 +177,9 @@ const Homepage = () => {
                                         render={({ field: { onChange, value}, fieldState: { error } }) => (
                                             <LocalizationProvider dateAdapter={AdapterDayjs}>
                                                 <DatePicker
-                                                label="DateArr"
                                                 value={value}
                                                 onChange={onChange}
-                                                format='DD/MM/YYYY'
+                                                format='YYYY/MM/DD'
                                                 error={!!error}
                                                 helperText={error ? error.message : null}
                                                 textField={(params) => <TextField {...params}/>}

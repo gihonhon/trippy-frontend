@@ -14,8 +14,8 @@ import ProfileButton from './ProfileButton';
 
 const Navbar = ({ styles }) => {
     const navigate = useNavigate()
+    
     const token = JSON.parse(localStorage.getItem("token"));
-    const user = JSON.parse(localStorage.getItem("user"));
 
     const [isSticky, setIsSticky] = useState(false);
 
@@ -68,7 +68,7 @@ const Navbar = ({ styles }) => {
                 </ul>
             </div>
             <div>
-                {!token ? (
+                {!token? (
                     <div className=''>
                         {/** Login Button */}
                         <Button variant='contained' style={{background: '#3E5CB8'}} onClick={() => navigate('/login')}>Login</Button>

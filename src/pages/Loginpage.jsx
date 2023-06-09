@@ -1,8 +1,27 @@
-import React from 'react'
-import { useNavigate } from 'react-router-dom'
+import React, { useContext, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import useLogin from '../services/api/useLogin';
+import { useForm } from "react-hook-form";
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from "yup";
+
+const schema = yup.object({
+  username: yup.string().required(),
+  password: yup.string().required(),
+}).required();
 
 const Loginpage = () => {
-    const navigate = useNavigate()
+    const navigate = useNavigate();
+    const { postLogin, msgError, users } = useLogin()
+    const { register, handleSubmit, formState:{ errors } } = useForm({
+      resolver: yupResolver(schema)
+    });
+
+    const handleLogin = (data) => {
+      postLogin(data)
+    } 
+    
+    
   return (
     <div className='w-full flex overflow-auto max-h-[100vh] items-center flex-col justify-start'>
         
@@ -12,19 +31,23 @@ const Loginpage = () => {
                 <div className='w-[90%] h-auto m-auto flex self-center items-center flex-col justify-center'>
                     <h1 className='text-[20px] self-center my-4 py-2 font-bold'>Log in</h1>
                     <span className='text-[#7a7c85] self-center font-medium mb-8'>Get started with an account on Trippy</span>
-                    <form className='gap-8 w-[50%] h-auto flex max-w-[50%] self-center mb-4 flex-col'>
-                        <input type='email' placeholder='Email' className='h-[60px] border border-black rounded-[7px] p-6'/>
-                        <input type='password' placeholder='Password' className='h-[60px] border border-black rounded-[7px] p-6'/>
+                    <form onSubmit={handleSubmit(handleLogin)} className='gap-8 w-[50%] h-auto flex max-w-[50%] self-center mb-4 flex-col'>
+                        <input {...register("username")} placeholder='Username'  className='h-[60px] border border-black rounded-[7px] p-6'/>
+                        <input {...register("password")} type='password' placeholder='Password'  className='h-[60px] border border-black rounded-[7px] p-6'/>
+                        <button type='submit' className='text-white w-[50%] h-[60px] self-center my-4 font-semibold rounded-[7px] bg-[#3e5cb8]'>Log in</button>
                     </form>
-                    <button className='text-white w-[50%] h-[60px] self-center my-4 font-semibold rounded-[7px] bg-[#3e5cb8]'>Log in</button>
+                        
+
+                    
                     <div className='flex self-center my-8 items-start'>
                         <span className='self-center font-medium text-[#7a7c85]'>
                             Not a trippy member?
                         </span>
                         <span className='text-[#4893d8] self-center font-bold cursor-pointer'
                         onClick={() => navigate('/register')}
-                        >Register now</span>
+                        >{users._id}</span>
                     </div>
+                    
                 </div>
             </div>
             <div className='w-[50%] h-full flex self-center items-start justify-center'>

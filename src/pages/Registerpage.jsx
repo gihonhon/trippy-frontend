@@ -18,7 +18,6 @@ const Registerpage = () => {
                         <input placeholder='Fullname' className='h-[60px] border border-black rounded-[7px] p-6'/>
                         <input type='email' placeholder='Email' className='h-[60px] border border-black rounded-[7px] p-6'/>
                         <input type='password' placeholder='Password' className='h-[60px] border border-black rounded-[7px] p-6'/>
-                        <input type='password' placeholder='Password' className='h-[60px] border border-black rounded-[7px] p-6'/>
                     </form>
                     <button className='text-white w-[50%] h-[60px] self-center my-4 font-semibold rounded-[7px] bg-[#3e5cb8]'>Log in</button>
                     <div className='flex self-center my-8 items-start'>
